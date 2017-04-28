@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<Albero xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ciao="ciao" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Root>
+    <Value>1</Value>
+    <Nodi-Left>
+      <Value>2</Value>
+      <Nodi-Left>
+        <Value>4</Value>
+        <Nodi-Right>
+          <Value>6</Value>
+        </Nodi-Right>
+      </Nodi-Left>
+    </Nodi-Left>
+    <Nodi-Right>
+      <Value>3</Value>
+      <Nodi-Right>
+        <Value>5</Value>
+        <Nodi-Right>
+          <Value>7</Value>
+          <Nodi-Right>
+            <Value>8</Value>
+          </Nodi-Right>
+        </Nodi-Right>
+      </Nodi-Right>
+    </Nodi-Right>
+  </Root>
+</Albero>
