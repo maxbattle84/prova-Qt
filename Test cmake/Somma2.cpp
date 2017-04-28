@@ -56,6 +56,7 @@ void Somma2::ApplyTranslation(QString lang)
 	if (!mTranslator)
 		mTranslator = new QTranslator();
 	mTranslator->load(lang, "../x64/bin");
+	mTranslator->load("../x64/bin/" + lang);
 	qApp->installTranslator(mTranslator);
 
 	//->setProperty("lang", lang);
@@ -73,12 +74,19 @@ void Somma2::on_languageBox_currentIndexChanged(int index)
 {	
 	int count = index;
 	bool prova = false;
-	if (count == 1)
+	bool isBlocked = ui->languageBox->blockSignals(true);
+	if (count == 1)//Exercise: find a better way to obtain the values "english" and "italiano" from the combo box (
 	{
 		ApplyTranslation("english");
 		//qApp->blockSignals(true);
 		//ui->retranslateUi(this);
 	}
+	else
+	{
+		ApplyTranslation("italiano");
+	}
+	ui->languageBox->blockSignals(isBlocked);
+	//Need to set also the previous index. the retranslate ui reset the index (the problem is the auto-generated retranslateUi, on my code it uses setItemText and not languageBox->insertItems. Maybe there is some flag to set in QtDesigner?
 
 
 	/*if (count == 0)
