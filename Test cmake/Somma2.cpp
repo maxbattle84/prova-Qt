@@ -16,7 +16,8 @@ Somma2::Somma2(QWidget *parent) : QWidget(parent), ui(NULL), mTranslator(NULL)
 {
 	ui = new Ui::somma2;
 	ui->setupUi(this);
-	ui->languageBox->setCurrentIndex(0);
+	ui->languageBox->setItemData(0, "italiano");
+	ui->languageBox->setItemData(1, "english");
 
 	connect(ui->te_Intero1, SIGNAL(textChanged()), this, SLOT(sum()));
 	connect(ui->te_Intero2, SIGNAL(textChanged()), this, SLOT(sum()));
@@ -63,25 +64,25 @@ void Somma2::ApplyTranslation(QString lang)
 	qApp->processEvents();
 
 	// Update the UI
+	int my_index = ui->languageBox->currentIndex();
 	ui->retranslateUi(this);
+	ui->languageBox->setCurrentIndex(my_index);
 	
 }
 
 
 void Somma2::on_languageBox_currentIndexChanged(int index)
 {
-	cout << "\n" << index;
-	ui->languageBox->setItemData(0, "italiano");
-	ui->languageBox->setItemData(1, "english");
+	//cout << "\n" << index;
 
 	QString nome = ui->languageBox->itemData(index).toString();
-	cout << "\n" << nome.toStdString();
+	//cout << "\n" << nome.toStdString();
 
 	bool isBlocked = ui->languageBox->blockSignals(true);
 	ApplyTranslation(ui->languageBox->itemData(index).toString());
 	
 	ui->languageBox->blockSignals(isBlocked);
-	cout << "\n" << index;
+	//cout << "\n" << index;
 	//Need to set also the previous index. the retranslate ui reset the index (the problem is the auto-generated retranslateUi, on my code it uses setItemText and not languageBox->insertItems. Maybe there is some flag to set in QtDesigner?
 
 }
