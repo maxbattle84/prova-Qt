@@ -16,7 +16,7 @@ Somma2::Somma2(QWidget *parent) : QWidget(parent), ui(NULL), mTranslator(NULL)
 {
 	ui = new Ui::somma2;
 	ui->setupUi(this);
-
+	ui->languageBox->setCurrentIndex(0);
 
 	connect(ui->te_Intero1, SIGNAL(textChanged()), this, SLOT(sum()));
 	connect(ui->te_Intero2, SIGNAL(textChanged()), this, SLOT(sum()));
@@ -59,96 +59,29 @@ void Somma2::ApplyTranslation(QString lang)
 	mTranslator->load("../x64/bin/" + lang);
 	qApp->installTranslator(mTranslator);
 
-	//->setProperty("lang", lang);
-	//qApp->processEvents();
+	qApp->setProperty("lang", lang);
+	qApp->processEvents();
 
 	// Update the UI
 	ui->retranslateUi(this);
-
-	//qApp->removeTranslator(mTranslator);	//this->blockSignals(true);
 	
 }
 
 
 void Somma2::on_languageBox_currentIndexChanged(int index)
-{	
-	int count = index;
-	bool prova = false;
+{
+	cout << "\n" << index;
+	ui->languageBox->setItemData(0, "italiano");
+	ui->languageBox->setItemData(1, "english");
+
+	QString nome = ui->languageBox->itemData(index).toString();
+	cout << "\n" << nome.toStdString();
+
 	bool isBlocked = ui->languageBox->blockSignals(true);
-	if (count == 1)//Exercise: find a better way to obtain the values "english" and "italiano" from the combo box (
-	{
-		ApplyTranslation("english");
-		//qApp->blockSignals(true);
-		//ui->retranslateUi(this);
-	}
-	else
-	{
-		ApplyTranslation("italiano");
-	}
+	ApplyTranslation(ui->languageBox->itemData(index).toString());
+	
 	ui->languageBox->blockSignals(isBlocked);
+	cout << "\n" << index;
 	//Need to set also the previous index. the retranslate ui reset the index (the problem is the auto-generated retranslateUi, on my code it uses setItemText and not languageBox->insertItems. Maybe there is some flag to set in QtDesigner?
 
-
-	/*if (count == 0)
-	{
-		ApplyTranslation("italiano");
-		qApp->blockSignals(true);
-		//ui->retranslateUi(this);
-	}*/
-	/*switch (count)
-	{
-	case 1:
-		prova = true;
-		cout << prova;
-		ApplyTranslation("english");
-		break;
-
-	case 0:
-		prova = false;
-		cout << prova;
-		ApplyTranslation("italiano");
-		break;
-
-	default:
-		break;
-	}*/
 }
-
-/*
-case 0:
-prova = false;
-cout << prova;
-if (translator->load("italiano", "../x64/bin"))
-cout << "\n" << "italiano caricato";
-
-//qApp->removeTranslator(&translator);
-qApp->installTranslator(translator);
-cout << "\n" << "italiano istallato";
-break;
-*/
-
-/*
-void Somma::on_bt_Somma_clicked() {
-
-	int i1, i2;
-
-	QString str1 = ui->te_Intero1->toPlainText();
-	QString str2 = ui->te_Intero2->toPlainText();
-
-	bool ok1;
-	bool ok2;
-	i1 = str1.toInt(&ok1);
-	i2 = str2.toInt(&ok2);
-	if (!ok1 || !ok2) { // not integers
-		QMessageBox msgBox;
-		msgBox.setText("Insert two integer");
-		msgBox.exec();
-	}
-	else {
-		int somma;
-		somma = i1 + i2;
-		QString str = QString::number(somma);
-		ui->lb_Somma->setText(str);
-	}
-}
-*/

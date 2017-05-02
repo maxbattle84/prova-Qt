@@ -14,7 +14,7 @@ class Somma2 : public QWidget
 public:
 	explicit Somma2(QWidget *parent = 0);
 	~Somma2();
-	
+
 	public slots:
 	void sum();
 	void on_languageBox_currentIndexChanged(int index);
@@ -23,7 +23,10 @@ public:
 private:
 	Ui::somma2 *ui;
 	void ApplyTranslation(QString lang);
+	void retranslateUi();
 	QTranslator* mTranslator;
+	//string languages;
+	
 };
 
 #endif //SOMMA2_H
